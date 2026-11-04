@@ -2,6 +2,12 @@
 
 Website for Morrell's, the ladies and gentlemen's hairdresser at 2 Trafalgar Road, Kettering, NN16 8DA.
 
+The public site is published from `main` to GitHub Pages:
+
+https://creativemkstudios.github.io/Morrell-s-Barber/
+
+That address serves the pages. Booking emails run only when this app is hosted with the Node server and SMTP settings below.
+
 ## Run
 
 ```bash

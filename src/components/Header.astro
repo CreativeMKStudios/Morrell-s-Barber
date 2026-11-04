@@ -1,5 +1,7 @@
 ---
-const path = Astro.url.pathname;
+import { withBase } from "../lib/url.ts";
+const here = Astro.url.pathname.replace(/\/$/, "") || "/";
+const current = (href: string) => (withBase(href).replace(/\/$/, "") || "/") === here;
 const links = [
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
@@ -15,18 +17,18 @@ const tabs = [
 ---
 <header class="site-header">
   <div class="wrap header-inner">
-    <a class="logo" href="/">Morrell's</a>
+    <a class="logo" href={withBase("/")}>Morrell's</a>
     <nav class="nav-main" aria-label="Main">
       {links.map((link) => (
-        <a href={link.href} aria-current={path === link.href ? "page" : undefined}>{link.label}</a>
+        <a href={withBase(link.href)} aria-current={current(link.href) ? "page" : undefined}>{link.label}</a>
       ))}
     </nav>
     <a class="header-phone" href="tel:+441536481561">01536 481561</a>
-    <a class="btn header-book" href="/book">Book</a>
+    <a class="btn header-book" href={withBase("/book")}>Book</a>
   </div>
 </header>
 <nav class="tabbar" aria-label="Mobile">
   {tabs.map((link) => (
-    <a href={link.href} aria-current={path === link.href ? "page" : undefined}>{link.label}</a>
+    <a href={withBase(link.href)} aria-current={current(link.href) ? "page" : undefined}>{link.label}</a>
   ))}
 </nav>

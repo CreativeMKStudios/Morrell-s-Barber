@@ -4,6 +4,7 @@ import { faqs, salon } from "../data/salon.ts";
 import { hoursRows } from "../data/salon.ts";
 import { breadcrumbSchema, faqSchema, hairSalonSchema } from "../lib/schema.ts";
 import { formatHours } from "../lib/slots.ts";
+import { withBase } from "../lib/url.ts";
 const description = "Contact Morrell's at 2 Trafalgar Road, Kettering, NN16 8DA. Call 01536 481561. Open Tuesday, Wednesday, Friday, and Saturday.";
 const crumbs = [{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }];
 const sent = Astro.url.searchParams.get("sent") === "1";
@@ -11,7 +12,7 @@ const sent = Astro.url.searchParams.get("sent") === "1";
 <Base title="Contact Morrell's | 2 Trafalgar Road, Kettering" description={description} path="/contact" schemas={[hairSalonSchema(Astro.site), faqSchema(), breadcrumbSchema(Astro.site, crumbs)]}>
   <div class="wrap">
     <header class="page-hero">
-      <p class="crumbs"><a href="/">Home</a> / Contact</p>
+      <p class="crumbs"><a href={withBase("/")}>Home</a> / Contact</p>
       <h1>Visit, call, or write</h1>
       <p class="lede">The salon is at 2 Trafalgar Road, Kettering, NN16 8DA.</p>
     </header>
@@ -36,10 +37,10 @@ const sent = Astro.url.searchParams.get("sent") === "1";
       </div>
       <div>
         <iframe class="map-frame" title="Map of Morrell's at 2 Trafalgar Road, Kettering" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=2+Trafalgar+Road,+Kettering+NN16+8DA&z=16&output=embed"></iframe>
-        <form class="panel" style="margin-top:16px" method="post" action="/api/contact">
+        <form class="panel" style="margin-top:16px" method="post" action={withBase("/api/contact")}>
           <h2>Send a message</h2>
           {sent && <p role="status">Thanks. If email is switched on, the salon has your note.</p>}
-          <p class="fine">For a hair appointment, use <a href="/book">the booking page</a>. Use this box for a question.</p>
+          <p class="fine">For a hair appointment, use <a href={withBase("/book")}>the booking page</a>. Use this box for a question.</p>
           <div class="fields">
             <label class="hp">Company <input name="company" tabindex="-1" autocomplete="off" /></label>
             <label><span>Name</span><input name="name" required autocomplete="name" /></label>

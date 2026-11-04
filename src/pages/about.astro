@@ -3,13 +3,14 @@ import Base from "../layouts/Base.astro";
 import ShopPhoto from "../components/ShopPhoto.astro";
 import { salon } from "../data/salon.ts";
 import { breadcrumbSchema, hairSalonSchema } from "../lib/schema.ts";
+import { withBase } from "../lib/url.ts";
 const description = "Morrell's is the ladies and gentlemen's hairdresser at 2 Trafalgar Road, Kettering. Here is what the shop, the hours, and the Google reviews actually say.";
 const crumbs = [{ name: "Home", path: "/" }, { name: "About", path: "/about" }];
 ---
 <Base title="About Morrell's | Kettering hairdresser" description={description} path="/about" schemas={[hairSalonSchema(Astro.site), breadcrumbSchema(Astro.site, crumbs)]}>
   <div class="wrap">
     <header class="page-hero">
-      <p class="crumbs"><a href="/">Home</a> / About</p>
+      <p class="crumbs"><a href={withBase("/")}>Home</a> / About</p>
       <h1>The salon on Trafalgar Road</h1>
       <p class="lede">Morrell's is a hairdresser for ladies and gentlemen at number 2, Kettering.</p>
     </header>
@@ -20,7 +21,7 @@ const crumbs = [{ name: "Home", path: "/" }, { name: "About", path: "/about" }];
         <p>Google scores the salon {salon.rating} from {salon.reviewCount} reviews. Names that come up include Charlotte, Jodie, Shqipe, Liz, Ellie, and Chloe. This page does not list who is in this week. Chairs change. Ask for the stylist you want when you book.</p>
         <p>A photo on the Google listing, taken in June 2019, is the shop front you see here. The right-hand window in that photo reads “Non-Appointment Salon”. For a set time, book on this site. If you want to come today, call first.</p>
         <p>The Google profile has no separate website listed. The salon has also shared a booking link on <a href={salon.thatTimeUrl}>That Time</a>. You can book here instead.</p>
-        <p><a class="btn" href="/book">Book a time</a></p>
+        <p><a class="btn" href={withBase("/book")}>Book a time</a></p>
       </div>
       <figure class="card" style="overflow:hidden;margin:0">
         <ShopPhoto widths="card" />
