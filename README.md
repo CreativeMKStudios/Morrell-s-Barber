@@ -2,11 +2,11 @@
 
 Website for Morrell's, the ladies and gentlemen's hairdresser at 2 Trafalgar Road, Kettering, NN16 8DA.
 
-The public site is published from `main` to GitHub Pages:
+GitHub Actions builds the public pages for:
 
 https://creativemkstudios.github.io/Morrell-s-Barber/
 
-That address serves the pages. Booking emails run only when this app is hosted with the Node server and SMTP settings below.
+The workflow is on `main`. GitHub still has to have Pages turned on for this repository, with the source set to GitHub Actions, before that address serves the site. Booking emails run only when this app is hosted with the Node server and SMTP settings below.
 
 ## Run
 
