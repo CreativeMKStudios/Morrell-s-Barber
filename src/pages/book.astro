@@ -3,13 +3,14 @@ import Base from "../layouts/Base.astro";
 import { salon, services } from "../data/salon.ts";
 import { formatMinutes } from "../data/salon.ts";
 import { breadcrumbSchema } from "../lib/schema.ts";
+import { withBase } from "../lib/url.ts";
 const description = "Book a hair appointment at Morrell's, 2 Trafalgar Road, Kettering. Pick a service, a day, and a time. Pay in the salon or ask to pay online.";
 const crumbs = [{ name: "Home", path: "/" }, { name: "Book", path: "/book" }];
 ---
 <Base title="Book a hair appointment | Morrell's Kettering" description={description} path="/book" schemas={[breadcrumbSchema(Astro.site, crumbs)]}>
   <div class="wrap book-top">
-    <img class="book-photo" src="/images/shop-1600.webp" alt="Morrell's shop front on Trafalgar Road, Kettering." width="1600" height="1200" fetchpriority="high" />
-    <form id="book-form" class="sheet" method="post" action="/api/book">
+    <img class="book-photo" src={withBase("/images/shop-1600.webp")} alt="Morrell's shop front on Trafalgar Road, Kettering." width="1600" height="1200" fetchpriority="high" />
+    <form id="book-form" class="sheet" method="post" action={withBase("/api/book")}>
       <div class="sheet-head">
         <div>
           <h1>Morrell's</h1>
@@ -17,9 +18,9 @@ const crumbs = [{ name: "Home", path: "/" }, { name: "Book", path: "/book" }];
         </div>
       </div>
       <nav class="tabs" aria-label="Salon sections">
-        <a href="/book" aria-current="page">Booking</a>
-        <a href="/about">About</a>
-        <a href="/reviews">Reviews</a>
+        <a href={withBase("/book")} aria-current="page">Booking</a>
+        <a href={withBase("/about")}>About</a>
+        <a href={withBase("/reviews")}>Reviews</a>
       </nav>
 
       <fieldset>
@@ -79,7 +80,7 @@ const crumbs = [{ name: "Home", path: "/" }, { name: "Book", path: "/book" }];
       </div>
       <p class="error" data-error role="alert"></p>
       <button class="btn btn-block" type="submit">Book now</button>
-      <p class="fine">We email you and the salon. If that time is already taken in the salon's own diary, they will phone you. Read the <a href="/booking-terms">booking terms</a>.</p>
+      <p class="fine">We email you and the salon. If that time is already taken in the salon's own diary, they will phone you. Read the <a href={withBase("/booking-terms")}>booking terms</a>.</p>
     </form>
   </div>
 </Base>

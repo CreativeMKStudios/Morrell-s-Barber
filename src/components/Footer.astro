@@ -2,6 +2,7 @@
 import { salon } from "../data/salon.ts";
 import { hoursRows } from "../data/salon.ts";
 import { formatHours } from "../lib/slots.ts";
+import { withBase } from "../lib/url.ts";
 ---
 <footer class="site-footer">
   <div class="wrap footer-grid">
@@ -26,13 +27,13 @@ import { formatHours } from "../lib/slots.ts";
     </div>
     <div>
       <h2>Pages</h2>
-      <p><a href="/about">About</a></p>
-      <p><a href="/services">Services</a></p>
-      <p><a href="/reviews">Reviews</a></p>
-      <p><a href="/book">Book</a></p>
-      <p><a href="/contact">Contact</a></p>
-      <p><a href="/privacy">Privacy</a></p>
-      <p><a href="/booking-terms">Booking terms</a></p>
+      <p><a href={withBase("/about")}>About</a></p>
+      <p><a href={withBase("/services")}>Services</a></p>
+      <p><a href={withBase("/reviews")}>Reviews</a></p>
+      <p><a href={withBase("/book")}>Book</a></p>
+      <p><a href={withBase("/contact")}>Contact</a></p>
+      <p><a href={withBase("/privacy")}>Privacy</a></p>
+      <p><a href={withBase("/booking-terms")}>Booking terms</a></p>
       <p><a href={salon.mapsUrl}>Google listing</a></p>
       <p><a href={salon.facebookUrl}>Facebook</a></p>
     </div>

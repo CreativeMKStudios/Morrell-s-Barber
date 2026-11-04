@@ -84,7 +84,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 function reply(body: { error?: string }, status: number, html: boolean) {
   if (html) {
     return new Response(
-      `<!doctype html><meta charset="utf-8"><title>Booking</title><p>${body.error}</p><p><a href="/book">Back to booking</a></p>`,
+      `<!doctype html><meta charset="utf-8"><title>Booking</title><p>${body.error}</p><p><a href="${process.env.BASE_PATH || ""}/book">Back to booking</a></p>`,
       { status, headers: { "content-type": "text/html; charset=utf-8" } },
     );
   }

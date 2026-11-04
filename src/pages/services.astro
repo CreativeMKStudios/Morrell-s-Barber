@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import { salon, serviceGroups, services } from "../data/salon.ts";
 import { formatMinutes } from "../data/salon.ts";
 import { breadcrumbSchema, hairSalonSchema } from "../lib/schema.ts";
+import { withBase } from "../lib/url.ts";
 const description = "Book a cut, dry cut, blow dry, straighten, or colour at Morrell's in Kettering. Prices are confirmed in the salon before you pay.";
 const crumbs = [{ name: "Home", path: "/" }, { name: "Services", path: "/services" }];
 const anchor: Record<string, string> = { Cuts: "cuts", Colour: "colour", "Blow dry": "blow-dry", Straighten: "straighten" };
@@ -10,7 +11,7 @@ const anchor: Record<string, string> = { Cuts: "cuts", Colour: "colour", "Blow d
 <Base title="Haircuts, colour and blow drys | Morrell's" description={description} path="/services" schemas={[hairSalonSchema(Astro.site), breadcrumbSchema(Astro.site, crumbs)]}>
   <div class="wrap">
     <header class="page-hero">
-      <p class="crumbs"><a href="/">Home</a> / Services</p>
+      <p class="crumbs"><a href={withBase("/")}>Home</a> / Services</p>
       <h1>What you can book</h1>
       <p class="lede">These are the jobs guests come in for. The time is how long we hold the chair. The salon tells you the price before you pay.</p>
     </header>
@@ -25,7 +26,7 @@ const anchor: Record<string, string> = { Cuts: "cuts", Colour: "colour", "Blow d
               <p>{service.detail}</p>
               <p class="meta">Chair held for {formatMinutes(service.minutes)}</p>
               <p class="price-note">Price in the salon</p>
-              <p><a class="btn" href={`/book?service=${service.id}`}>Book {service.name}</a></p>
+              <p><a class="btn" href={withBase(`/book?service=${service.id}`)}>Book {service.name}</a></p>
             </article>
           ))}
         </div>

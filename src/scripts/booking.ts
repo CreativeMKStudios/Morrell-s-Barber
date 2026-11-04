@@ -1,4 +1,5 @@
 import { services } from "../data/salon.ts";
+import { withBase } from "../lib/url.ts";
 import {
   addDays,
   calendarCells,
@@ -147,7 +148,7 @@ if (form) {
     const button = form.querySelector<HTMLButtonElement>('[type="submit"]')!;
     button.disabled = true;
     try {
-      const response = await fetch("/api/book", {
+      const response = await fetch(withBase("/api/book"), {
         method: "POST",
         headers: { "content-type": "application/json", accept: "application/json" },
         body: JSON.stringify(data),
@@ -159,7 +160,7 @@ if (form) {
         return;
       }
       sessionStorage.setItem("morrells-booking-message", body.message || "");
-      location.href = `/book/confirmed?ref=${encodeURIComponent(body.ref)}`;
+      location.href = `${withBase("/book/confirmed")}?ref=${encodeURIComponent(body.ref)}`;
     } catch {
       errorEl.textContent = "The page could not reach the salon system. Please call 01536 481561.";
       button.disabled = false;

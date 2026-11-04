@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import { reviews, salon } from "../data/salon.ts";
 import { breadcrumbSchema, hairSalonSchema } from "../lib/schema.ts";
+import { withBase } from "../lib/url.ts";
 const description = "Google reviews for Morrell's, the hairdresser at 2 Trafalgar Road, Kettering. Score 4.5 from 82 reviews. Read a selection, then the full set on Google.";
 const crumbs = [{ name: "Home", path: "/" }, { name: "Reviews", path: "/reviews" }];
 const dateFmt = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
@@ -9,7 +10,7 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long"
 <Base title="Google reviews for Morrell's Kettering" description={description} path="/reviews" schemas={[hairSalonSchema(Astro.site), breadcrumbSchema(Astro.site, crumbs)]}>
   <div class="wrap">
     <header class="page-hero">
-      <p class="crumbs"><a href="/">Home</a> / Reviews</p>
+      <p class="crumbs"><a href={withBase("/")}>Home</a> / Reviews</p>
       <h1>What Google reviews say</h1>
       <p class="lede">Morrell's scores {salon.rating} out of 5, from {salon.reviewCount} Google reviews. The count was checked in November 2026. Open the listing for the live number.</p>
     </header>

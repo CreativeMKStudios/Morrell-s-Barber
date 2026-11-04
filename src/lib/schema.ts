@@ -1,8 +1,10 @@
 import { faqs, reviews, salon, services, hoursRows } from "../data/salon.ts";
+import { withBase } from "./url.ts";
 
 export function absolute(site: URL | undefined, path: string) {
-  if (!site) return path;
-  return new URL(path, site).href;
+  const rooted = withBase(path);
+  if (!site) return rooted;
+  return new URL(rooted, site).href;
 }
 
 export function jsonLd(data: unknown) {

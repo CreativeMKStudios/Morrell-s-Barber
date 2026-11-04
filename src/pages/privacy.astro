@@ -2,13 +2,14 @@
 import Base from "../layouts/Base.astro";
 import { salon } from "../data/salon.ts";
 import { breadcrumbSchema } from "../lib/schema.ts";
+import { withBase } from "../lib/url.ts";
 const description = "How Morrell's in Kettering uses the name, email, and phone number you send with a booking or a message.";
 const crumbs = [{ name: "Home", path: "/" }, { name: "Privacy", path: "/privacy" }];
 ---
 <Base title="Privacy notice | Morrell's Kettering" description={description} path="/privacy" schemas={[breadcrumbSchema(Astro.site, crumbs)]}>
   <div class="wrap prose">
     <header class="page-hero">
-      <p class="crumbs"><a href="/">Home</a> / Privacy</p>
+      <p class="crumbs"><a href={withBase("/")}>Home</a> / Privacy</p>
       <h1>Privacy notice</h1>
     </header>
     <p>Morrell's at {salon.address.street}, {salon.address.locality}, {salon.address.postalCode} is the data controller for this website. Call {salon.phoneDisplay} if you want to ask about your details. We do not publish a separate privacy email.</p>

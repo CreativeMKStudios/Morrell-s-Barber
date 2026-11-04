@@ -7,6 +7,7 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { jsonLd } from "../lib/schema.ts";
+import { withBase } from "../lib/url.ts";
 
 interface Props {
   title: string;
@@ -16,8 +17,8 @@ interface Props {
   schemas?: unknown[];
 }
 const { title, description, path, noindex = false, schemas = [] } = Astro.props;
-const canonical = new URL(path, Astro.site).href;
-const image = new URL("/images/og.jpg", Astro.site).href;
+const canonical = new URL(withBase(path), Astro.site).href;
+const image = new URL(withBase("/images/og.jpg"), Astro.site).href;
 const fullTitle = title.includes("Morrell") ? title : `${title} | Morrell's Kettering`;
 ---
 <!doctype html>
@@ -28,7 +29,7 @@ const fullTitle = title.includes("Morrell") ? title : `${title} | Morrell's Kett
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={withBase("/favicon.svg")} type="image/svg+xml" />
     <link rel="alternate" hreflang="en-GB" href={canonical} />
     <link rel="alternate" hreflang="x-default" href={canonical} />
     <meta name="theme-color" content="#efe9e2" />
@@ -51,7 +52,7 @@ const fullTitle = title.includes("Morrell") ? title : `${title} | Morrell's Kett
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="manifest" href={withBase("/site.webmanifest")} />
     {schemas.map((schema) => (
       <script type="application/ld+json" set:html={jsonLd(schema)} />
     ))}

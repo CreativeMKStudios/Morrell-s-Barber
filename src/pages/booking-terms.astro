@@ -2,13 +2,14 @@
 import Base from "../layouts/Base.astro";
 import { salon } from "../data/salon.ts";
 import { breadcrumbSchema } from "../lib/schema.ts";
+import { withBase } from "../lib/url.ts";
 const description = "Booking terms for Morrell's in Kettering. How a time is held, how you pay, and how to change the appointment.";
 const crumbs = [{ name: "Home", path: "/" }, { name: "Booking terms", path: "/booking-terms" }];
 ---
 <Base title="Booking terms | Morrell's Kettering" description={description} path="/booking-terms" schemas={[breadcrumbSchema(Astro.site, crumbs)]}>
   <div class="wrap prose">
     <header class="page-hero">
-      <p class="crumbs"><a href="/">Home</a> / Booking terms</p>
+      <p class="crumbs"><a href={withBase("/")}>Home</a> / Booking terms</p>
       <h1>Booking terms</h1>
     </header>
     <p>A booking on this site asks Morrell's to keep a chair at 2 Trafalgar Road, Kettering. You and the salon both get an email when email is switched on.</p>

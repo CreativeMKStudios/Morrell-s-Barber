@@ -1,11 +1,12 @@
 ---
 import Base from "../layouts/Base.astro";
+import { withBase } from "../lib/url.ts";
 const description = "That page is not on the Morrell's website. Go back to the Kettering salon home page or book a time.";
 ---
 <Base title="Page not found | Morrell's Kettering" description={description} path="/404" noindex>
   <div class="wrap page-hero">
     <h1>That page is not here</h1>
     <p class="lede">The salon pages are home, about, services, reviews, contact, and booking.</p>
-    <p><a class="btn" href="/">Home</a> <a class="btn-line" href="/book">Book a time</a></p>
+    <p><a class="btn" href={withBase("/")}>Home</a> <a class="btn-line" href={withBase("/book")}>Book a time</a></p>
   </div>
 </Base>

@@ -4,6 +4,7 @@ import Base from "../../layouts/Base.astro";
 import { findBooking } from "../../lib/store.ts";
 import { formatLongDate, formatRange } from "../../lib/slots.ts";
 import { salon } from "../../data/salon.ts";
+import { withBase } from "../../lib/url.ts";
 
 const ref = Astro.url.searchParams.get("ref") || "";
 const booking = /^MR-[A-Z2-9]{6}$/.test(ref) ? findBooking(ref) : null;
@@ -29,7 +30,7 @@ const description = "Your Morrell's booking reference.";
             : `The email did not send. Please call ${salon.phoneDisplay} and quote ${booking.ref}.`}
         </p>
         <p>If the salon cannot do this time, they will phone {booking.phone}.</p>
-        <p><a class="btn" href="/">Back to the salon</a></p>
+        <p><a class="btn" href={withBase("/")}>Back to the salon</a></p>
       </article>
     ) : (
       <p>Check the link, or call {salon.phoneDisplay}.</p>
