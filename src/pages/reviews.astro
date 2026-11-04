@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import { reviews, salon } from "../data/salon.ts";
+import { breadcrumbSchema, hairSalonSchema } from "../lib/schema.ts";
+const description = "Google reviews for Morrell's, the hairdresser at 2 Trafalgar Road, Kettering. Score 4.5 from 82 reviews. Read a selection, then the full set on Google.";
+const crumbs = [{ name: "Home", path: "/" }, { name: "Reviews", path: "/reviews" }];
+const dateFmt = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+---
+<Base title="Google reviews for Morrell's Kettering" description={description} path="/reviews" schemas={[hairSalonSchema(Astro.site), breadcrumbSchema(Astro.site, crumbs)]}>
+  <div class="wrap">
+    <header class="page-hero">
+      <p class="crumbs"><a href="/">Home</a> / Reviews</p>
+      <h1>What Google reviews say</h1>
+      <p class="lede">Morrell's scores {salon.rating} out of 5, from {salon.reviewCount} Google reviews. The count was checked in November 2026. Open the listing for the live number.</p>
+    </header>
+    <p>The words below are from that listing. We did not write them. The score is not a perfect 5, and some visits went badly. These are the notes people left when they were glad they came. Read every review on <a href={salon.mapsUrl}>Google</a>.</p>
+    <div class="grid-2">
+      {reviews.map((review) => (
+        <blockquote class="card review">
+          <p>{review.rating ? <span class="star" aria-label={`${review.rating} out of 5`}>{"★".repeat(review.rating)}</span> : "Google review"}</p>
+          <p>{review.text}</p>
+          <footer>{review.author} · <time datetime={review.date}>{dateFmt.format(new Date(`${review.date}T00:00:00Z`))}</time></footer>
+        </blockquote>
+      ))}
+    </div>
+    <p><a class="btn" href={salon.mapsUrl}>All reviews on Google</a></p>
+  </div>
+</Base>

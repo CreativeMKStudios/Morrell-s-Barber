@@ -1,0 +1,10 @@
+{
+  "name": "Morrell's Kettering",
+  "short_name": "Morrell's",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#efe9e2",
+  "theme_color": "#efe9e2",
+  "lang": "en-GB",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

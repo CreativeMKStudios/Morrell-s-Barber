@@ -1,0 +1,126 @@
+---
+import Base from "../layouts/Base.astro";
+import ShopPhoto from "../components/ShopPhoto.astro";
+import { faqs, reviews, salon, services } from "../data/salon.ts";
+import { breadcrumbSchema, faqSchema, hairSalonSchema } from "../lib/schema.ts";
+import { todayLabel } from "../lib/slots.ts";
+
+const description = "Morrell's is a ladies and gentlemen's hairdresser at 2 Trafalgar Road, Kettering, NN16 8DA. Book a cut, colour, or blow dry. Call 01536 481561.";
+const featured = services.slice(0, 4);
+const quotes = reviews.slice(0, 3);
+const photos = [
+  { src: "/images/window-left.webp", alt: "Left window at Morrell's, with a chair and the ladies and gentlemen sign." },
+  { src: "/images/window-right.webp", alt: "Right window at Morrell's, with styling chairs and a colour poster." },
+  { src: "/images/shop-960.webp", alt: "The Morrell's shop front on Trafalgar Road." },
+  { src: "/images/window-left.webp", alt: "Inside the left window at Morrell's, Kettering." },
+];
+const shownDate = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+---
+<Base
+  title="Morrell's Kettering | Hairdresser on Trafalgar Road"
+  description={description}
+  path="/"
+  schemas={[hairSalonSchema(Astro.site), faqSchema(), breadcrumbSchema(Astro.site, [{ name: "Home", path: "/" }])]}
+>
+  <div class="wrap">
+    <section class="hero">
+      <ShopPhoto priority widths="hero" />
+      <div class="hero-shade"></div>
+      <div class="hero-copy">
+        <p class="kicker">Kettering hairdresser</p>
+        <h1>Haircuts and colour on Trafalgar Road.</h1>
+        <p>Morrell's cuts and colours hair for ladies and gentlemen. Book a time. Pay in the salon, or ask to pay online.</p>
+        <div class="hero-actions">
+          <a class="btn-dark" href="/book">
+            <span class="btn-mark" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round">
+                <circle cx="6" cy="6" r="3"></circle>
+                <circle cx="6" cy="18" r="3"></circle>
+                <path d="M8.5 8.5 20 20"></path>
+                <path d="M20 4 8.5 15.5"></path>
+              </svg>
+            </span>
+            Book a time
+          </a>
+          <a class="btn btn-ghost" href={`tel:${salon.phoneTel}`}>{salon.phoneDisplay}</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="facts" aria-label="Salon facts">
+      <article class="fact"><span>Google score</span><strong><span class="star">★</span> {salon.rating} from {salon.reviewCount}</strong></article>
+      <article class="fact"><span>Today</span><strong>{todayLabel()}</strong></article>
+      <article class="fact"><span>Address</span><strong>2 Trafalgar Road</strong></article>
+      <article class="fact"><span>Phone</span><strong><a href={`tel:${salon.phoneTel}`}>{salon.phoneDisplay}</a></strong></article>
+    </section>
+
+    <section class="promo">
+      <div class="promo-copy">
+        <p class="kicker">Open four days</p>
+        <h2>Tuesday, Wednesday, Friday, and Saturday.</h2>
+        <p>Closed Monday, Thursday, and Sunday. Book the day you want before you travel.</p>
+        <a class="btn" href="/book">Book now</a>
+      </div>
+      <img src="/images/window-right.webp" alt="Right-hand window at Morrell's, with chairs and a colour poster." width="720" height="730" />
+    </section>
+
+    <section class="band">
+      <h2>What you can book</h2>
+      <p class="lede">Cuts, colour, blow drys, and straightening. The price is confirmed before you pay. We do not guess it here.</p>
+      <div class="pills" aria-label="Service types">
+        <a class="pill" href="/services#cuts">Cuts</a>
+        <a class="pill" href="/services#colour">Colour</a>
+        <a class="pill" href="/services#blow-dry">Blow dry</a>
+        <a class="pill" href="/services#straighten">Straighten</a>
+      </div>
+      <div class="grid-2" style="margin-top:16px">
+        {featured.map((service, index) => (
+          <a class="card service-card" href={`/book?service=${service.id}`}>
+            <img src={photos[index].src} alt={photos[index].alt} width="720" height="480" />
+            <div>
+              <h3>{service.name}</h3>
+              <p class="meta">{service.summary}</p>
+              <p class="price-note">Price in the salon</p>
+            </div>
+          </a>
+        ))}
+      </div>
+      <p><a class="btn-line" href="/services">See all services</a></p>
+    </section>
+
+    <section class="band">
+      <h2>What guests wrote on Google</h2>
+      <p class="lede">The score is {salon.rating} from {salon.reviewCount} reviews. It is not a perfect 5. These lines are from people who were pleased. The rest are on Google too.</p>
+      <div class="grid-3">
+        {quotes.map((review) => (
+          <blockquote class="card review">
+            <p>{review.rating ? <span class="star">{"★".repeat(review.rating)}</span> : "Google review"}</p>
+            <p>{review.text}</p>
+            <footer>{review.author === "Google reviewer" ? "Google review" : review.author} · <time datetime={review.date}>{shownDate.format(new Date(`${review.date}T00:00:00Z`))}</time></footer>
+          </blockquote>
+        ))}
+      </div>
+      <p><a class="btn-line" href="/reviews">Read the reviews</a></p>
+    </section>
+
+    <section class="band split">
+      <div class="panel">
+        <h2>Find the salon</h2>
+        <p>2 Trafalgar Road, Kettering, NN16 8DA. The number 2 is on the left of the sign. Plus code {salon.plusCode}.</p>
+        <p>It is on the Newlands side of town. There is no listed car park. Read the street signs.</p>
+        <p><a class="btn" href={salon.directionsUrl}>Get directions</a></p>
+      </div>
+      <iframe class="map-frame" title="Map of Morrell's at 2 Trafalgar Road, Kettering" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=52.4005658,-0.7293985&z=16&output=embed"></iframe>
+    </section>
+
+    <section class="band faq">
+      <h2>Questions people ask</h2>
+      {faqs.slice(0, 4).map((faq) => (
+        <details>
+          <summary>{faq.question}</summary>
+          <p>{faq.answer}</p>
+        </details>
+      ))}
+    </section>
+  </div>
+</Base>

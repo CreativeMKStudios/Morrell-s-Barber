@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+import { salon } from "../data/salon.ts";
+import { breadcrumbSchema } from "../lib/schema.ts";
+const description = "Booking terms for Morrell's in Kettering. How a time is held, how you pay, and how to change the appointment.";
+const crumbs = [{ name: "Home", path: "/" }, { name: "Booking terms", path: "/booking-terms" }];
+---
+<Base title="Booking terms | Morrell's Kettering" description={description} path="/booking-terms" schemas={[breadcrumbSchema(Astro.site, crumbs)]}>
+  <div class="wrap prose">
+    <header class="page-hero">
+      <p class="crumbs"><a href="/">Home</a> / Booking terms</p>
+      <h1>Booking terms</h1>
+    </header>
+    <p>A booking on this site asks Morrell's to keep a chair at 2 Trafalgar Road, Kettering. You and the salon both get an email when email is switched on.</p>
+    <p>The salon also keeps its own diary. If that time is already taken, they will phone the number you gave and move it. Do not travel a long way until you have the email, or you have spoken to the salon.</p>
+    <p>Prices are not fixed on this website. The salon tells you the price before you pay. A poster in a June 2019 photo is not the current price list.</p>
+    <p>Pay in the salon means you pay on the day. Pay online means you asked to pay by card. This form never asks for a card number. A card is only taken if the salon has switched on a secure payment page. If that is off, you pay in the shop.</p>
+    <p>To change or cancel, call {salon.phoneDisplay} as soon as you can. The salon has not published a cancellation fee here, so this page does not invent one.</p>
+    <p>Same-day times need at least 30 minutes before the start. Monday, Thursday, and Sunday are closed on the Google listing.</p>
+  </div>
+</Base>
