@@ -1,0 +1,38 @@
+---
+export const prerender = false;
+import Base from "../../layouts/Base.astro";
+import { findBooking } from "../../lib/store.ts";
+import { formatLongDate, formatRange } from "../../lib/slots.ts";
+import { salon } from "../../data/salon.ts";
+
+const ref = Astro.url.searchParams.get("ref") || "";
+const booking = /^MR-[A-Z2-9]{6}$/.test(ref) ? findBooking(ref) : null;
+const description = "Your Morrell's booking reference.";
+---
+<Base title="Booking received | Morrell's" description={description} path="/book/confirmed" noindex>
+  <div class="wrap">
+    <header class="page-hero">
+      <h1>{booking ? "You are booked in" : "We could not find that booking"}</h1>
+    </header>
+    {booking ? (
+      <article class="panel prose">
+        <p>Thanks, {booking.name}. Keep this reference: <strong>{booking.ref}</strong>.</p>
+        <p>{booking.serviceName}<br />{formatLongDate(booking.date)}<br />{formatRange(booking.time, booking.durationMin)}</p>
+        <p>
+          {booking.payment === "salon"
+            ? "You chose to pay in the salon. No card has been taken."
+            : "You asked to pay online. No card number was taken on this page. Pay in the salon unless the team sends a payment link."}
+        </p>
+        <p>
+          {booking.emailsSent
+            ? "We have emailed you and the salon."
+            : `The email did not send. Please call ${salon.phoneDisplay} and quote ${booking.ref}.`}
+        </p>
+        <p>If the salon cannot do this time, they will phone {booking.phone}.</p>
+        <p><a class="btn" href="/">Back to the salon</a></p>
+      </article>
+    ) : (
+      <p>Check the link, or call {salon.phoneDisplay}.</p>
+    )}
+  </div>
+</Base>

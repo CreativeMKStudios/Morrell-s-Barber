@@ -1,0 +1,31 @@
+---
+import Base from "../layouts/Base.astro";
+import ShopPhoto from "../components/ShopPhoto.astro";
+import { salon } from "../data/salon.ts";
+import { breadcrumbSchema, hairSalonSchema } from "../lib/schema.ts";
+const description = "Morrell's is the ladies and gentlemen's hairdresser at 2 Trafalgar Road, Kettering. Here is what the shop, the hours, and the Google reviews actually say.";
+const crumbs = [{ name: "Home", path: "/" }, { name: "About", path: "/about" }];
+---
+<Base title="About Morrell's | Kettering hairdresser" description={description} path="/about" schemas={[hairSalonSchema(Astro.site), breadcrumbSchema(Astro.site, crumbs)]}>
+  <div class="wrap">
+    <header class="page-hero">
+      <p class="crumbs"><a href="/">Home</a> / About</p>
+      <h1>The salon on Trafalgar Road</h1>
+      <p class="lede">Morrell's is a hairdresser for ladies and gentlemen at number 2, Kettering.</p>
+    </header>
+    <div class="split">
+      <div class="prose">
+        <p>The shop is a brick unit with a wide sign. The phone number 01536 481561 is painted on the fascia. The left window says ladies and gentlemen's hairdressers.</p>
+        <p>People come for a cut, a blow dry, a straighten, or colour. Some visits are short. Colour can take a few hours. In November 2024 a guest wrote that the team brought a hot water bottle, a blanket, and hot drinks during a four-hour appointment.</p>
+        <p>Google scores the salon {salon.rating} from {salon.reviewCount} reviews. Names that come up include Charlotte, Jodie, Shqipe, Liz, Ellie, and Chloe. This page does not list who is in this week. Chairs change. Ask for the stylist you want when you book.</p>
+        <p>A photo on the Google listing, taken in June 2019, is the shop front you see here. The right-hand window in that photo reads “Non-Appointment Salon”. For a set time, book on this site. If you want to come today, call first.</p>
+        <p>The Google profile has no separate website listed. The salon has also shared a booking link on <a href={salon.thatTimeUrl}>That Time</a>. You can book here instead.</p>
+        <p><a class="btn" href="/book">Book a time</a></p>
+      </div>
+      <figure class="card" style="overflow:hidden;margin:0">
+        <ShopPhoto widths="card" />
+        <figcaption class="fine" style="padding:12px 16px 16px">Shop front from the Google listing. Photo taken June 2019.</figcaption>
+      </figure>
+    </div>
+  </div>
+</Base>

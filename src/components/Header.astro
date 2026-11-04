@@ -1,0 +1,32 @@
+---
+const path = Astro.url.pathname;
+const links = [
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/reviews", label: "Reviews" },
+  { href: "/contact", label: "Contact" },
+];
+const tabs = [
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/book", label: "Book" },
+  { href: "/contact", label: "Contact" },
+];
+---
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="/">Morrell's</a>
+    <nav class="nav-main" aria-label="Main">
+      {links.map((link) => (
+        <a href={link.href} aria-current={path === link.href ? "page" : undefined}>{link.label}</a>
+      ))}
+    </nav>
+    <a class="header-phone" href="tel:+441536481561">01536 481561</a>
+    <a class="btn header-book" href="/book">Book</a>
+  </div>
+</header>
+<nav class="tabbar" aria-label="Mobile">
+  {tabs.map((link) => (
+    <a href={link.href} aria-current={path === link.href ? "page" : undefined}>{link.label}</a>
+  ))}
+</nav>

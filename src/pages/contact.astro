@@ -1,0 +1,64 @@
+---
+import Base from "../layouts/Base.astro";
+import { faqs, salon } from "../data/salon.ts";
+import { hoursRows } from "../data/salon.ts";
+import { breadcrumbSchema, faqSchema, hairSalonSchema } from "../lib/schema.ts";
+import { formatHours } from "../lib/slots.ts";
+const description = "Contact Morrell's at 2 Trafalgar Road, Kettering, NN16 8DA. Call 01536 481561. Open Tuesday, Wednesday, Friday, and Saturday.";
+const crumbs = [{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }];
+const sent = Astro.url.searchParams.get("sent") === "1";
+---
+<Base title="Contact Morrell's | 2 Trafalgar Road, Kettering" description={description} path="/contact" schemas={[hairSalonSchema(Astro.site), faqSchema(), breadcrumbSchema(Astro.site, crumbs)]}>
+  <div class="wrap">
+    <header class="page-hero">
+      <p class="crumbs"><a href="/">Home</a> / Contact</p>
+      <h1>Visit, call, or write</h1>
+      <p class="lede">The salon is at 2 Trafalgar Road, Kettering, NN16 8DA.</p>
+    </header>
+    <div class="split">
+      <div class="panel">
+        <p><strong>Phone</strong><br /><a href={`tel:${salon.phoneTel}`}>{salon.phoneDisplay}</a></p>
+        <p><strong>Address</strong><br />{salon.address.street}<br />{salon.address.locality}<br />{salon.address.postalCode}</p>
+        <p><strong>Plus code</strong><br />{salon.plusCode}</p>
+        <p><a class="btn" href={salon.directionsUrl}>Get directions</a></p>
+        <h2>Hours</h2>
+        <table class="hours">
+          <tbody>
+            {hoursRows.map((row) => (
+              <tr>
+                <th scope="row">{row.name}</th>
+                <td>{formatHours(row.hours)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="fine">From the Google listing. Checked 4 November 2026. Wednesday was showing as open until 4pm that day.</p>
+      </div>
+      <div>
+        <iframe class="map-frame" title="Map of Morrell's at 2 Trafalgar Road, Kettering" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=2+Trafalgar+Road,+Kettering+NN16+8DA&z=16&output=embed"></iframe>
+        <form class="panel" style="margin-top:16px" method="post" action="/api/contact">
+          <h2>Send a message</h2>
+          {sent && <p role="status">Thanks. If email is switched on, the salon has your note.</p>}
+          <p class="fine">For a hair appointment, use <a href="/book">the booking page</a>. Use this box for a question.</p>
+          <div class="fields">
+            <label class="hp">Company <input name="company" tabindex="-1" autocomplete="off" /></label>
+            <label><span>Name</span><input name="name" required autocomplete="name" /></label>
+            <label><span>Email</span><input name="email" type="email" required autocomplete="email" /></label>
+            <label><span>Phone, if you want a call back</span><input name="phone" type="tel" autocomplete="tel" /></label>
+            <label><span>Message</span><textarea name="message" required></textarea></label>
+            <button class="btn btn-block" type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <section class="band faq">
+      <h2>Before you travel</h2>
+      {faqs.map((faq) => (
+        <details>
+          <summary>{faq.question}</summary>
+          <p>{faq.answer}</p>
+        </details>
+      ))}
+    </section>
+  </div>
+</Base>

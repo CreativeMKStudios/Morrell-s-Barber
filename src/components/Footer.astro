@@ -1,0 +1,40 @@
+---
+import { salon } from "../data/salon.ts";
+import { hoursRows } from "../data/salon.ts";
+import { formatHours } from "../lib/slots.ts";
+---
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="logo">Morrell's</p>
+      <p>
+        {salon.address.street}<br />
+        {salon.address.locality}<br />
+        {salon.address.postalCode}
+      </p>
+      <p><a href={`tel:${salon.phoneTel}`}>{salon.phoneDisplay}</a></p>
+      <p>Ladies and gentlemen's hairdresser on Trafalgar Road, Kettering.</p>
+    </div>
+    <div>
+      <h2>Hours</h2>
+      <ul>
+        {hoursRows.map((row) => (
+          <li>{row.name}: {formatHours(row.hours)}</li>
+        ))}
+      </ul>
+      <p class="fine">Hours from the Google listing, checked 4 November 2026.</p>
+    </div>
+    <div>
+      <h2>Pages</h2>
+      <p><a href="/about">About</a></p>
+      <p><a href="/services">Services</a></p>
+      <p><a href="/reviews">Reviews</a></p>
+      <p><a href="/book">Book</a></p>
+      <p><a href="/contact">Contact</a></p>
+      <p><a href="/privacy">Privacy</a></p>
+      <p><a href="/booking-terms">Booking terms</a></p>
+      <p><a href={salon.mapsUrl}>Google listing</a></p>
+      <p><a href={salon.facebookUrl}>Facebook</a></p>
+    </div>
+  </div>
+</footer>

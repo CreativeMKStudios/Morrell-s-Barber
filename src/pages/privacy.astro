@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+import { salon } from "../data/salon.ts";
+import { breadcrumbSchema } from "../lib/schema.ts";
+const description = "How Morrell's in Kettering uses the name, email, and phone number you send with a booking or a message.";
+const crumbs = [{ name: "Home", path: "/" }, { name: "Privacy", path: "/privacy" }];
+---
+<Base title="Privacy notice | Morrell's Kettering" description={description} path="/privacy" schemas={[breadcrumbSchema(Astro.site, crumbs)]}>
+  <div class="wrap prose">
+    <header class="page-hero">
+      <p class="crumbs"><a href="/">Home</a> / Privacy</p>
+      <h1>Privacy notice</h1>
+    </header>
+    <p>Morrell's at {salon.address.street}, {salon.address.locality}, {salon.address.postalCode} is the data controller for this website. Call {salon.phoneDisplay} if you want to ask about your details. We do not publish a separate privacy email.</p>
+    <h2>What we collect</h2>
+    <p>If you book, we collect your name, email, phone number, the service, the date, the time, any stylist note, and whether you want to pay in the salon or online. If you send a message, we collect your name, email, phone if you add one, and the message.</p>
+    <h2>Why</h2>
+    <p>We use these details to hold the appointment and to email you and the salon. The reason is the booking you asked for. We do not add you to a mailing list. We do not sell the details.</p>
+    <h2>Who sees them</h2>
+    <p>The salon managers see the booking email. If the site is set up with an email service, that service carries the message. Card numbers are not typed into this site.</p>
+    <h2>How long</h2>
+    <p>Booking notes are kept so the salon can run the diary. Ask the salon to delete a booking record when you no longer need the appointment. You can also ask for a copy of what we hold, or ask us to fix a mistake.</p>
+    <h2>Cookies</h2>
+    <p>This site does not set advertising cookies. A booking is stored on the server, not in a tracking cookie.</p>
+  </div>
+</Base>

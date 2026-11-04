@@ -1,0 +1,28 @@
+---
+interface Props {
+  class?: string;
+  priority?: boolean;
+  widths?: "hero" | "card";
+}
+const { class: className = "", priority = false, widths = "hero" } = Astro.props;
+const alt = "Brick shop front of Morrell's at 2 Trafalgar Road, Kettering, with the phone number on the sign.";
+---
+{widths === "hero" ? (
+  <picture>
+    <source type="image/webp" srcset="/images/shop-960.webp 960w, /images/shop-1600.webp 1600w" sizes="(max-width: 800px) 100vw, 1120px" />
+    <img
+      class={className}
+      src="/images/shop-1600.jpg"
+      srcset="/images/shop-960.jpg 960w, /images/shop-1600.jpg 1600w"
+      sizes="(max-width: 800px) 100vw, 1120px"
+      alt={alt}
+      width="1600"
+      height="1200"
+      decoding="async"
+      fetchpriority={priority ? "high" : "auto"}
+      loading={priority ? "eager" : "lazy"}
+    />
+  </picture>
+) : (
+  <img class={className} src="/images/shop-960.webp" alt={alt} width="960" height="720" loading="lazy" decoding="async" />
+)}
